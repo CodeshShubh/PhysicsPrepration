@@ -84,7 +84,7 @@ const FAQS = () => {
     setisShow(isShow === id ? null : id);
   };
   return (
-    <main className="p-5 w-[90%] mx-auto  h-screen">
+    <main className="p-5 w-[90%] mx-auto  h-screen overflow-y-auto ">
       <h1 className="font-extrabold text-4xl mb-10">FAQs</h1>
       {/* container */}
       <div className="flex flex-wrap gap-10  justify-items-start ">
@@ -93,11 +93,11 @@ const FAQS = () => {
         {physicsFaqs.map((items) => (
           <div
             key={items.id}
-            className="  p-1 w-[48%] cursor-pointer "
+            className="  p-1 w-[100%] lg:w-[48%] cursor-pointer "
             onClick={() => onClickChange(items.id)}
           >
             <p
-              className={`inline font-bold text-lg mr-3 align-middle ${
+              className={`inline font-bold text-sm lg:text-lg mr-3 align-middle ${
                 isShow === items.id ? "text-orange-400" : ""
               }`}
             >
