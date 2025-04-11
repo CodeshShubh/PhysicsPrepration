@@ -6,7 +6,7 @@ const LatestVideos = () => {
      const dispatch = useDispatch()
   const { videos } = useSelector((state) => state.videos);
 
-  console.log(videos)
+  // console.log(videos)
 
   const filteredVideos = useMemo(()=>{
      const result = videos?.filter((items) => items.category === "course")

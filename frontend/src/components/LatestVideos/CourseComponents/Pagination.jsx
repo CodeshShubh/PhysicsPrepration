@@ -15,8 +15,7 @@ const Pagination = ({setpage, totalPage, currentPage}) => {
    if(currentPage<totalPage) {
     setpage(prev=>prev+1)
 
-  }
-    
+  } 
 
  }
 

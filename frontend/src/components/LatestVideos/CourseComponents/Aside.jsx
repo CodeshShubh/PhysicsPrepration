@@ -26,10 +26,10 @@ const Aside = () => {
     }
   }, [videos]);
 
-  console.log('Final category count:', categoryCount);
+  // console.log('Final category count:', categoryCount);
 
   return (
-    <div className="hidden lg:block">
+    <div className="hidden lg:block ">
       <h1 className="font-extrabold text-2xl mb-5">Topics</h1>
       <div className=" w-[100%] flex flex-col gap-8">
         {category.map((cat) => (

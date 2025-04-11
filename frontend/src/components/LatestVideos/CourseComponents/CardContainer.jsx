@@ -2,16 +2,27 @@ import { MdDateRange } from "react-icons/md";
 
 
 const CardContainer = ({videos}) => {
+
+
+  if (!videos || videos.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-[450px]">
+        <h1 className="text-xl font-semibold text-gray-700 bg-orange-100 px-6 py-3 rounded shadow">
+          🚫 No Videos Found
+        </h1>
+      </div>
+    );
+  }
   
 
   return (
-    <div className='mt-5 lg:mt-15 p-1 lg:p-0 flex flex-col gap-5'> 
+    <div className='mt-5 lg:mt-15 p-1 lg:p-0 flex flex-col gap-5 '> 
 
             {/* cards */}
              {
                videos.map((data , index)=>{
                  return(
-            <div key={index} className='flex gap-2 lg:justify-between items-center border rounded-l-2xl shadow transition transform duration-300 hover:scale-104 cursor-pointer group '>
+            <div key={index} className='flex gap-2 lg:justify-between items-center  rounded-l-2xl shadow-xl transition transform duration-300 hover:scale-104 cursor-pointer group '>
             <iframe
           className="p-1  rounded-2xl w-[150px] h-[100px] lg:w-[250px] lg:h-[150px]"
             src={data.videoUrl}
