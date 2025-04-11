@@ -6,12 +6,12 @@ import NavBar from './components/Layout/NavBar';
 import Footer from './components/Layout/Footer'
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import LatestVideos from './components/LatestVideos/LatestVideos';
-import ContactUs from './components/ContactUs/ContactUs';
-import FAQS from './components/FAQS/FAQS';
+import LatestVideos from './components/LatestVideos/LatestVideos.jsx';
+import ContactUs from './components/ContactUs/ContactUs.jsx';
+import FAQS from './components/FAQS/FAQS.jsx';
 import NotFound from './components/Layout/NotFound';
 import ProtectedRoute from './ProtectedRoute';
-import  AllCourse from './components/AllCourse/AllCourse';
+import  AllCourse from './components/AllCourse/AllCourse.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
 import { clearError, clearMessage } from '../redux/Slices/userSlice';
@@ -19,7 +19,7 @@ import { loadUser } from '../redux/actions/userActions';
 import Profile from './components/Profile/Profile';
 import ForgetPassword from './components/Auth/ForgetPassword';
 import ResetPassword from './components/Profile/ResetPassword';
-import Dashboard from './components/DashBoard/Dashboard';
+import Dashboard from './components/DashBoard/Dashboard.jsx';
 import Edit from './components/DashBoard/components/Edit';
 
 

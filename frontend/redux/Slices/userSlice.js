@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const initialState = {
   isAuthenticated: false,
   loading: true,
@@ -12,6 +13,24 @@ const userSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    //register user
+    RegisterRequest:(state)=>{
+      state.loading=true
+    },
+    RegisterSuccess:(state,action)=>{
+      state.loading=false;
+      state.isAuthenticated=true;
+      state.user=action.payload;
+      state.message=action.payload.message;
+      state.error=null
+    },
+
+    RegisterFail:(state,action)=>{
+      state.loading=false
+      state.message=action.payload
+      state.error=action.payload
+    },
+
     loginRequest: (state) => {
       state.loading = true;
     },
@@ -81,6 +100,9 @@ export const {
   logoutRequest,
   logoutSuccess,
   logoutFail,
+  RegisterFail,
+  RegisterRequest,
+  RegisterSuccess
 } = userSlice.actions;
 
 export default userSlice.reducer;

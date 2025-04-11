@@ -18,4 +18,4 @@ const store = configureStore({
 
 export default store;
 
-export const server = "http://localhost:8001"
+export const server = "https://physicsprepration-backend.onrender.com"

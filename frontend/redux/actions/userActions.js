@@ -1,5 +1,5 @@
 import { server } from "../store";
-import {loginSuccess ,loginRequest , loginFail, loadUserRequest, loadUserSuccess, loadUserFail, logoutRequest, logoutSuccess, logoutFail} from '../Slices/userSlice.js';
+import {loginSuccess ,loginRequest , loginFail, loadUserRequest, loadUserSuccess, loadUserFail, logoutRequest, logoutSuccess, logoutFail, RegisterRequest, RegisterSuccess, RegisterFail} from '../Slices/userSlice.js';
 import axios from 'axios'
 import { failUpdate, requestUpdate, successUpdate } from "../Slices/profileSlice.js";
 
@@ -17,6 +17,23 @@ export const login = ({email , password})=> async (dispatch)=>{
     } catch (error) {
            dispatch(loginFail(error.response.data.message || "Login failed"))
     }
+}
+
+export const registerUser = ({email, userName , password, })=>async dispatch =>{
+         try {
+            dispatch(RegisterRequest())
+
+            const {data} = await axios.post(`${server}/user/register`, {email, userName, password}, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials:true
+            });
+            dispatch(RegisterSuccess(data))
+            
+         } catch (error) {
+            dispatch(RegisterFail(error.response.data.message))
+         }
 }
 
 export const loadUser = ()=>async (dispatch)=>{

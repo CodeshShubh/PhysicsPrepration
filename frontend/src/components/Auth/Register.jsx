@@ -1,38 +1,65 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
 import toast, { Toaster } from 'react-hot-toast';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {registerUser} from '../../../redux/actions/userActions'
+import { clearError, clearMessage } from '../../../redux/Slices/userSlice';
 
 const Register = () => {
+
+  const {loading,error,message } = useSelector((state)=>state.auth)
+
   const [isClick, setIsClick] = useState({
     password: false,
     confirm_password:false
   })
   const [formData, setformData] = useState({
     email: '',
-    username:'',
+    userName:'',
     password:'',
     confirm_password:''
   })
+  const dispatch = useDispatch();
 
   const onChangeHandler = (e)=>{
        setformData({...formData , [e.target.name]:e.target.value})
   }
 
-  const submitHandler =(e)=>{
-    e.preventDefault()
-      if( formData.email.trim()==='' || formData.username.trim()=== '' || formData.password.trim()==='' || formData.confirm_password.trim()==='' ){
-         toast.error('Please Enter All Details First')
-         return
-      }else if(formData.password.trim()!==formData.confirm_password.trim()){
-         toast.error('Comfirm Password Not Match')
-      }else{
-        toast.success('Register Succesfully');
-        console.log(formData)
+
+    useEffect(() => {
+      if (error) {
+        toast.error(error);
+        dispatch(clearError());
       }
-  }
+      if (message) {
+        toast.success(message);
+        dispatch(clearMessage());
+      }
+    }, [error, message, dispatch]);
+    
+
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+  
+    const { email, userName, password, confirm_password } = formData;
+  
+    if (!email.trim() || !userName.trim() || !password.trim() || !confirm_password.trim()) {
+      toast.error('Please Enter All Details First');
+      return;
+    }
+  
+    if (password.trim() !== confirm_password.trim()) {
+      toast.error('Confirm Password Does Not Match');
+      return;
+    }
+  
+    // Dispatch the action
+    dispatch(registerUser({ email, userName, password }));
+  };
+  
 
   return (
     <div className=' mt-10 '>
@@ -40,7 +67,7 @@ const Register = () => {
         <Toaster position='top-center' reverseOrder={false}/>
          <h1 className='  font-extrabold text-2xl p-5'>Register</h1>
          <input type='email' name='email' placeholder='Email' className='border p-3 rounded outline-none' value={formData.email} onChange={onChangeHandler}/>
-         <input type='text' name='username' placeholder='User Name' className='border p-3 rounded outline-none' value={formData.username}  onChange={onChangeHandler}/>
+         <input type='text' name='userName' placeholder='User Name' className='border p-3 rounded outline-none' value={formData.userName}  onChange={onChangeHandler}/>
          <div className='border p-2 rounded flex justify-center items-center'>
          <input type={isClick.password ? 'text' : 'password' } name='password' placeholder='Password' className=' w-full outline-none' value={formData.password}  onChange={onChangeHandler}/> {
           isClick.password ? (
