@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
 import toast, { Toaster } from 'react-hot-toast';
@@ -9,7 +9,7 @@ import { clearError, clearMessage } from '../../../redux/Slices/userSlice';
 
 const Register = () => {
 
-  const {loading,error,message } = useSelector((state)=>state.auth)
+  const {error,message } = useSelector((state)=>state.auth)
 
   const [isClick, setIsClick] = useState({
     password: false,
@@ -40,7 +40,7 @@ const Register = () => {
     }, [error, message, dispatch]);
     
 
-
+ const navigate = useNavigate()
   const submitHandler = (e) => {
     e.preventDefault();
   
@@ -58,6 +58,7 @@ const Register = () => {
   
     // Dispatch the action
     dispatch(registerUser({ email, userName, password }));
+    navigate('/login')
   };
   
 

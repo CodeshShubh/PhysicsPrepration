@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deletedVideo, FetcheditableVideos } from "../../../../redux/actions/videoAction";
+import toast, {Toaster} from 'react-hot-toast'
+import { clearError, clearMessage } from "../../../../redux/Slices/editVideoSlice";
 
 const VideoList = () => {
   const dispatch = useDispatch();
   const { videos } = useSelector((state) => state.videos);
+  const {  message ,error } = useSelector((state) => state.edit);
   const [editVideos, setEditVideos] = useState([]);
 
   const categories = ["questions", "course", "doubts", "others"];
@@ -12,12 +15,25 @@ const VideoList = () => {
   // 🧠 Fetch videos once on mount
   useEffect(() => {
     dispatch(FetcheditableVideos());
-  }, [dispatch]);
+  }, [dispatch ]);
 
   // ⏬ Update local state when Redux state updates
   useEffect(() => {
     setEditVideos(videos);
   }, [videos]);
+
+
+  useEffect(()=>{
+ if(error){
+   toast.error(error)
+dispatch(clearError())
+ }
+ if(message){
+  toast.success(message)
+  dispatch(clearMessage())
+ }
+  },[message , error])
+  
 
   // 🧨 Handle delete with optimistic UI update
   const handleDelete = (id) => {
@@ -25,8 +41,19 @@ const VideoList = () => {
     dispatch(deletedVideo(id)); // Call delete in backend
   };
 
+  if (!videos || videos.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-[450px]">
+        <h1 className="text-xl font-semibold text-gray-700 bg-orange-100 px-6 py-3 rounded shadow">
+          🚫 No Videos Found
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto p-4">
+      <Toaster position="top-center" />
       {categories.map((category) => {
         const filteredVideos = editVideos.filter((video) => video.category === category);
 

@@ -11,12 +11,22 @@ const LatestVideos = () => {
   const filteredVideos = useMemo(()=>{
      const result = videos?.filter((items) => items.category === "course")
      return result
-  })
+  },[videos])
 
   useEffect(()=>{
       dispatch(fetchCouresVideos())
-  },[])
+  },[dispatch])
   
+  if (!filteredVideos || filteredVideos.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-[450px]">
+        <h1 className="text-xl font-semibold text-gray-700 bg-orange-100 px-6 py-3 rounded shadow">
+          🚫 No Videos Found
+        </h1>
+      </div>
+    );
+  }
+
 
   return (
     <div className="h-screen p-5">

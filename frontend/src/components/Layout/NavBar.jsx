@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { TfiMenu } from "react-icons/tfi";
 
 import SideBar from "./SideBar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUser } from "../../../redux/actions/userActions";
 
 const NavBar = () => {
   const [isOpen, setisOpen] = useState(false);
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
 
-  // console.log(user)
+  const dispatch=useDispatch()
+
+ useEffect(() => {
+    dispatch(loadUser())
+ }, [dispatch])
+ 
   return (
     <div className="w-full shadow bg-white sticky top-0 z-100">
       <nav className="w-[90%] mx-auto flex justify-between items-center gap-3  px-5 py-1">
@@ -103,17 +109,32 @@ const NavBar = () => {
               Register
             </Link>
           </div>
+        ) : loading ? (
+          <div className="hidden lg:block">
+            <div className="w-[40px] h-[40px] flex items-center justify-center">
+              <div className="w-8 h-8 border-4 border-orange-400 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          </div>
         ) : (
           <Link
             to={"/profile"}
-            className=" hidden lg:block lg:flex  lg:gap-5 lg:justify-center lg:items-center cursor-pointer "
+            className=" hidden lg:block lg:flex lg:gap-5 lg:justify-center lg:items-center cursor-pointer"
           >
-            <div className="w-[40px] h-[40px] shadow rounded-full overflow-hidden mx-auto ">
-              <img src={user.avatar.url} alt="photo" className="object-cover" />
+            <div className="w-[40px] h-[40px] shadow rounded-full overflow-hidden mx-auto">
+              <img
+                src={user?.avatar?.url || "https://placehold.co/80x80"}
+                alt="photo"
+                className="object-cover"
+              />
             </div>
-            {user.role=='Admin' ? <h3>{`${user.userName}(Admin)`}</h3>   :   (<h3>{user.userName}</h3>) }
+            {user.role === "Admin" ? (
+              <h3>{`${user?.userName}(Admin)`}</h3>
+            ) : (
+              <h3>{user?.userName}</h3>
+            )}
           </Link>
         )}
+
       </nav>
     </div>
   );

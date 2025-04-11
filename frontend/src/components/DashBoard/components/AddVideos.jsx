@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { addVideoAction } from '../../../../redux/actions/videoAction'
+import toast from 'react-hot-toast'
+import { clearError, clearMessage } from '../../../../redux/Slices/editVideoSlice'
 
 const AddVideos = () => {
   const [data, setdata] = useState({
@@ -12,6 +14,9 @@ const AddVideos = () => {
   })
 
   const dispatch = useDispatch()
+
+  const {  message ,error } = useSelector((state) => state.edit);
+
 
   const onChangeHandler = (e)=>{
      setdata({...data , [e.target.name]:e.target.value })
@@ -39,6 +44,20 @@ const AddVideos = () => {
     })
   }
   const categories = ["questions", "course", "doubts", "others"];
+
+  useEffect(() => {
+   if(message){
+     toast.success(message)
+     dispatch(clearMessage())
+   }
+
+   if(error){
+    toast.error(error)
+    dispatch(clearError())
+   }
+  }, [error , message])
+  
+
   return (
     <div className="h-fit">
       <form>

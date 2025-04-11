@@ -16,7 +16,7 @@ const SideBar = ({setisOpen ,isOpen , user}) => {
           <Link to={'/profile'} onClick={()=>setisOpen(false)}
            className=" absolute m-2">
               <div className="w-[40px] h-[40px] border rounded-full overflow-hidden mx-auto">
-              <img src={user.avatar.url}alt="photo"/>
+              <img src={user?.avatar?.url || 'https://placehold.co/80x80'}alt="photo"/>
               </div>
             </Link>
       <div className=' w-full p-2'>

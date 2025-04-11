@@ -27,7 +27,7 @@ const EditReducer = createSlice({
              },
              addVideoSuccess:(state,action)=>{
                 state.loading=false;
-                state.message= action.payload.message;
+                state.message= action.payload.Message;
                 state.error=null
              },
              addingVideoFail:(state, action)=>{
@@ -45,6 +45,6 @@ const EditReducer = createSlice({
     }
 })
 
-export const {deleteVideoFail, deletedVideoRequest,deletedVideoSuccess , addVideoRequest , addVideoSuccess , addingVideoFail} = EditReducer.actions;
+export const {deleteVideoFail, deletedVideoRequest,deletedVideoSuccess , addVideoRequest , addVideoSuccess , addingVideoFail , clearError , clearMessage} = EditReducer.actions;
 
 export default EditReducer.reducer

@@ -20,6 +20,16 @@ import { fetchLatestVideos } from '../../../redux/actions/videoAction';
  useEffect(() => {
    dispatch(fetchLatestVideos({page}))
  }, [dispatch, page])
+ 
+if (!videos || videos.length === 0) {
+  return (
+    <div className="flex justify-center items-center h-[450px]">
+      <h1 className="text-xl font-semibold text-gray-700 bg-orange-100 px-6 py-3 rounded shadow">
+        🚫 No Videos Found
+      </h1>
+    </div>
+  );
+}
 
     return (
       <section className='flex justify-evenly mt-10'>

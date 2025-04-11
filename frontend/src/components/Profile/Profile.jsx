@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logout from "./Logout.jsx";
 import { useDispatch, useSelector  } from "react-redux";
-import {updateProfile } from "../../../redux/actions/userActions";
+import {loadUser, updateProfile } from "../../../redux/actions/userActions";
 import toast, {Toaster} from 'react-hot-toast' 
 import { clearError, clearMessage } from "../../../redux/Slices/profileSlice";
 
@@ -37,6 +37,7 @@ const Profile = () => {
       dispatch(clearMessage())
     }
   }, [error, message, loading]);
+
 
   const submitHandler = (e) => {
     e.preventDefault();

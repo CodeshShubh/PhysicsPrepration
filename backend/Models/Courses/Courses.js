@@ -28,7 +28,7 @@ const courseSchema = new mongoose.Schema(
     videoUrl: {
           type: String,
           required: [true, "YouTube Embed URL is required"],
-          unique:true,
+          unique:[true, 'this url is already Added'],
           validate: {   
             validator: (value) =>
               validator.isURL(value) && youtubeEmbedRegex.test(value),
